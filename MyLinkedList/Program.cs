@@ -1,23 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace MyLinkedList
 {
+   using System;
+
    class Program
    {
       static void Main(string[] args)
       {
-         var node = new ListNode<int>(25);
-         node.AddToEnd(11);
+         var list = new MyLinkedList<int>();
 
-         node.PrintNode();
+         list.AddToBeginning(10);
+         list.AddToBeginning(5);
+         list.AddToBeginning(10);
+         list.AddToEnd(25);
+         list.AddToEnd(3);
+
+         list.PrintAllNodes();
+
          Console.WriteLine();
-         node.AddToEnd(25);
-         node.AddToEnd(2222);
-         node.PrintNode();
+
+         list.DeleteNode(10);
+
+         list.PrintAllNodes();
+         
+
+         Console.WriteLine(list.Count);
          Console.ReadKey();
       }
    }
