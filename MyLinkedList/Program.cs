@@ -17,14 +17,10 @@ namespace MyLinkedList
 
          list.PrintAllNodes();
 
-         Console.WriteLine();
+         list.Insert(25, 10);
 
-         list.DeleteNode(10);
-
-         list.PrintAllNodes();
+         Console.WriteLine(list.IsContainValue(0));
          
-
-         Console.WriteLine(list.Count);
          Console.ReadKey();
       }
    }

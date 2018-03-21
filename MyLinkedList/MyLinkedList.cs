@@ -1,5 +1,4 @@
 ﻿
-
 namespace MyLinkedList
 {
    using System;
@@ -9,32 +8,14 @@ namespace MyLinkedList
       public ListNode<T> First;
       public ListNode<T> Current;
 
-      public int Count
-      {
-         get
-         {
-            return GetListCount();
-         }
-      }
+      public int Count;
+      
       public MyLinkedList()
       {
          this.First = null;
       }
 
-      private int GetListCount()
-      {
-         var iterator = this.First;
-         var count = 0;
-         while (iterator != null)
-         {
-            count++;
-            iterator = iterator.NextNode;
-         }
-
-         return count;
-      }
-
-
+     
       public void AddToEnd(T data)
       {
          var insertedNode = new ListNode<T>(data);
@@ -42,6 +23,7 @@ namespace MyLinkedList
          if (First == null)
          {
             First = insertedNode;
+            Count++;
             return;
          }
 
@@ -53,6 +35,7 @@ namespace MyLinkedList
          }
 
          Current.NextNode = insertedNode;
+         Count++;
       }
 
       public void AddToBeginning(T data)
@@ -60,6 +43,7 @@ namespace MyLinkedList
          var insertedNode = new ListNode<T>(data);
          insertedNode.NextNode = First;
          First = insertedNode;
+         Count++;
       }
 
       public void DeleteNode(T data)
@@ -73,6 +57,7 @@ namespace MyLinkedList
          if (First.Data.Equals(data))
          {
             First = First.NextNode;
+            Count--;
             return;
          }
 
@@ -95,10 +80,73 @@ namespace MyLinkedList
          else
          {
             Current.NextNode = Current.NextNode.NextNode;
+            Count--;
          }
       }
       
       
+      public void Insert(T data,int position)
+      {
+         ListNode<T> insertionElement;
+         if (position > Count)
+         {
+            Console.WriteLine("Position bigger then list count");
+            return;
+         }
+
+         if (position == 1)
+         {
+            insertionElement = new ListNode<T>(data);
+            insertionElement.NextNode = First;
+            First = insertionElement;
+            Count++; 
+            return;
+         }
+
+         Current = First;
+         for (int i = 0; i < position - 1 && Current != null; i++)
+         {
+            Current = Current.NextNode;
+
+         }
+         if (Current == null)
+         {
+            Console.WriteLine($"Wrong inserting position");
+         }
+
+         else
+         {
+            insertionElement = new ListNode<T>(data);
+            insertionElement.NextNode = Current.NextNode;
+            Current.NextNode = insertionElement;
+            Count++;
+         }
+      }
+
+      public bool IsContainValue(T data)
+      {
+         var searchingElement = First;
+         for (int i = 0; i < Count; i++)
+         {
+            if (searchingElement == null)
+            {
+               return false;
+            }
+
+            else if (searchingElement.Data.Equals(data))
+            {
+               return true;
+            }
+
+            else
+            {
+               searchingElement = searchingElement.NextNode;
+            }
+         }
+
+         return false;
+      }
+
 
       public void PrintAllNodes()
       {
